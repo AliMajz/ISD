@@ -1,6 +1,7 @@
 package com.Gymweb.gymweb.contoller;
 
 import com.Gymweb.gymweb.entity.Member;
+import com.Gymweb.gymweb.entity.User;
 import com.Gymweb.gymweb.error.ValidationException;
 import com.Gymweb.gymweb.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,15 +20,17 @@ public class MemberController {
     public Member addUser(@RequestBody Member member) throws ValidationException {
         return memberService.add(member);
     }
-
-
     @GetMapping("/list")
-    public List<Member> viewUserList(){
+    public List<Member> viewMemberList(){
         return memberService.fetchList();
     }
 
     @GetMapping("/email/{email}")
     public Member getMemberByEmail(@PathVariable String email) throws ValidationException {
         return memberService.findByEmail(email);
+    }
+    @PatchMapping("/{email}")
+    public Member patchByEmail(@PathVariable(name = "email") String email, @RequestBody Member member) throws ValidationException {
+        return memberService.patchByEmail(email, member);
     }
 }

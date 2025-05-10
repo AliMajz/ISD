@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -31,14 +32,13 @@ public class Schedule {
     @JoinColumn(name = "class_id")
     private Classes classes; // Reference to the Classes entity (not an enum)
 
-    private Date startTime;
-    private Date endTime;
+    private LocalDate startTime;
+    private LocalDate endTime;
 
     // A list of days for the schedule
     @ElementCollection(targetClass = Days.class)
     @CollectionTable(name = "schedule_days", joinColumns = @JoinColumn(name = "schedule_id"))
     @Enumerated(EnumType.STRING)
     private List<Days> days;
-
 
 }

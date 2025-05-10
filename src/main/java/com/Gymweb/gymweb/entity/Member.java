@@ -1,5 +1,6 @@
 package com.Gymweb.gymweb.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -22,6 +23,7 @@ public class Member extends User implements UserDetails{
     private LocalDate startDate;
     private LocalDate endDate;
     private String status;
+    private Boolean pt;
 
     @Enumerated(EnumType.STRING)
     private Membership membership;

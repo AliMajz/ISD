@@ -1,33 +1,67 @@
-HELP.md
-target/
-!.mvn/wrapper/maven-wrapper.jar
-!**/src/main/**/target/
-!**/src/test/**/target/
-
-### STS ###
-.apt_generated
-.classpath
-.factorypath
-.project
-.settings
-.springBeans
-.sts4-cache
-
-### IntelliJ IDEA ###
-.idea
-*.iws
+# Java
+*.class
+*.jar
+*.war
+*.ear
+*.log
 *.iml
+*.hprof
+
+# IntelliJ IDEA
+.idea/
+*.iws
 *.ipr
+*.iml
+out/
+!.mvn/wrapper/maven-wrapper.jar
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# Maven
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+
+# Gradle
+.gradle/
 build/
-!**/src/main/**/build/
-!**/src/test/**/build/
+!gradle/wrapper/gradle-wrapper.jar
 
-### VS Code ###
+# Spring Boot
+*.db
+*.h2.db
+*.mv.db
+*.trace.db
+
+# Logs
+logs/
+*.log
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# Temporary files
+*.swp
+*.tmp
+*.bak
+
+# Environment files
+.env
+.env.*
+
+# VS Code (if used)
 .vscode/
+
+# JetBrains Rider (if used)
+.idea/
+
+# Node (if frontend is in same project)
+node_modules/
+dist/
+
+# Test reports
+test-output/

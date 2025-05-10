@@ -19,7 +19,7 @@ public interface MemberRepo extends JpaRepository<Member, Long> {
 
     Optional<Member> findByEmailIgnoreCase(String email);
 
-    @Query("SELECT m FROM Member m WHERE m.endDate < CUREENT_DATE")
+    @Query("SELECT m FROM Member m WHERE m.endDate < CURRENT_DATE")
     List<Member> getAllExpiredMembers();
 
 }

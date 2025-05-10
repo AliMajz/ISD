@@ -1,6 +1,7 @@
 package com.Gymweb.gymweb.auth;
 
 import com.Gymweb.gymweb.config.JwtService;
+import com.Gymweb.gymweb.entity.Role;
 import com.Gymweb.gymweb.entity.User;
 import com.Gymweb.gymweb.error.ValidationException;
 import com.Gymweb.gymweb.repository.UserRepo;
@@ -48,6 +49,7 @@ public class AuthenticationService extends BaseService<User> {
 //                .build();
         User user = modelMapper.map(request, User.class);
 
+        user.setRole(Role.ADMIN);
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setCreatedBy(Securityutils.getCurrentUsername());
        // user.setCreatedDate(LocalDate.now());
@@ -61,6 +63,7 @@ public class AuthenticationService extends BaseService<User> {
         var jwtToken = jwtService.generateToken(user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .role(Role.ADMIN)
                 .build();
     }
 
@@ -82,6 +85,7 @@ public class AuthenticationService extends BaseService<User> {
         var jwtToken = jwtService.generateToken(extraCliams, user);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .role(user.getRole())
                 .build();
     }
 

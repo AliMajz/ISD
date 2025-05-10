@@ -31,9 +31,9 @@ public class CoachController {
         return coachService.fetchList();
     }
 
-    @DeleteMapping("/{email}")
-    public String deleteByEmail(@PathVariable(name = "email")  String email) throws ValidationException {
-        coachService.deleteByEmail(email);
+    @DeleteMapping("/{id}")
+    public String deleteByEmail(@PathVariable(name = "id")  long id) throws ValidationException {
+        coachService.deleteById(id);
         return "Coach deleted successfully !";
     }
 

@@ -24,11 +24,11 @@ public class RegisterMemberRequest {
     private String gender;
     private String email;
     private String password;
-    private List<String> classname;
-    private List<RelaxingAreas> relaxingAreas;
-    private Membership membership;
+    //private List<String> classname;
+    //private List<RelaxingAreas> relaxingAreas;
+    //private Membership membership;
     private String phoneNb;
-    private Role role;
+    //private Role role;
 //    private LocalDate startDate;
 //    private LocalDate endDate;
 }

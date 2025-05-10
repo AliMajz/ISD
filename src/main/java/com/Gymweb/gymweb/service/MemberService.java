@@ -2,6 +2,7 @@ package com.Gymweb.gymweb.service;
 
 import com.Gymweb.gymweb.entity.Member;
 import com.Gymweb.gymweb.entity.Role;
+import com.Gymweb.gymweb.entity.User;
 import com.Gymweb.gymweb.error.ValidationException;
 import com.Gymweb.gymweb.repository.MemberRepo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,14 +51,14 @@ public class MemberService extends BaseService<Member> {
     }
 
     @Override
-    public Member patch(long Id, Member entity) throws ValidationException {
+    public Member patchByEmail(String email, Member entity) throws ValidationException {
 
         // Fetch the existing Member (which also includes the User fields)
-        Member existingMember = memberRepo.findById(Id)
-                .orElseThrow(() -> new ValidationException("Member with ID " + Id + " not found"));
+        Member existingMember = memberRepo.findByEmail(email)
+                .orElseThrow(() -> new ValidationException("Member with ID " + email + " not found"));
 
         // First, update the inherited fields from User (i.e., fname, lname, gender, email, etc.)
-        super.patch(Id, entity); // Call the base patch method for User fields
+        super.patchByEmail(email, entity); // Call the base patch method for User fields
 
         // Now, update the Member-specific fields
 
@@ -73,6 +74,9 @@ public class MemberService extends BaseService<Member> {
         if (entity.getStatus() != null && !entity.getStatus().isBlank()) {
             existingMember.setStatus(entity.getStatus());
         }
+        if (entity.getPt() != null) {
+            existingMember.setPt(entity.getPt());
+        }
 
         if (entity.getMembership() != null) {
             existingMember.setMembership(entity.getMembership());
@@ -87,7 +91,7 @@ public class MemberService extends BaseService<Member> {
         }
 
         // Save the updated member using the generic method
-        return super.patch(Id, existingMember); // Save the Member entity
+        return super.patchByEmail(email, existingMember); // Save the Member entity
     }
 
 
@@ -98,5 +102,10 @@ public class MemberService extends BaseService<Member> {
             member.setStatus("expired");
         }
         memberRepo.saveAll(expiredMembers);
+    }
+
+    @Override
+    public List<Member> fetchList() {
+        return super.fetchList();
     }
 }

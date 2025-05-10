@@ -1,5 +1,6 @@
 package com.Gymweb.gymweb.service;
 
+import com.Gymweb.gymweb.entity.Classes;
 import com.Gymweb.gymweb.entity.Coach;
 import com.Gymweb.gymweb.error.ValidationException;
 import com.Gymweb.gymweb.repository.CoachRepo;
@@ -32,6 +33,12 @@ public class CoachService extends BaseService<Coach> {
     public Coach add(Coach entity) throws ValidationException {
         validateUnique(entity);
         entity.setCreatedBy(Securityutils.getCurrentUsername());
+
+//        if (entity.getClasses() != null) {
+//            for (Classes c : entity.getClasses()) {
+//                c.setCoach(entity);  // 🔁 Ensure the reverse relationship is set
+//            }
+//        }
         return super.add(entity);
     }
 
@@ -85,10 +92,10 @@ public class CoachService extends BaseService<Coach> {
     }
 
 
-    public void deleteByEmail(String email) throws ValidationException {
-        Optional<Coach> coach = coachRepo.findByEmail(email);
+    public void deleteById(long id) throws ValidationException {
+        Optional<Coach> coach = coachRepo.findById(id);
         if (coach.isEmpty()) {
-            throw new ValidationException("No Coach with email " + email + " is found");
+            throw new ValidationException("No Coach with email " + id + " is found");
         }
 
         // Delete the coach directly from the repository

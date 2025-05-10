@@ -32,10 +32,10 @@ public class AuthenticationController {
         return ResponseEntity.ok(memberAuthenticationService.registerMember(request));
     }
 
-    @PostMapping("/authenticate/member")
-    public ResponseEntity<AuthenticationResponse> authenticateMember (@RequestBody AuthenticationMemberRequest request)
-    {
-        return ResponseEntity.ok(memberAuthenticationService.authenticateMember(request));
-    }
+//    @PostMapping("/authenticate/member")
+//    public ResponseEntity<AuthenticationResponse> authenticateMember (@RequestBody AuthenticationMemberRequest request)
+//    {
+//        return ResponseEntity.ok(memberAuthenticationService.authenticateMember(request));
+//    }
 }
 

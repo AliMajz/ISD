@@ -2,6 +2,7 @@ package com.Gymweb.gymweb.auth;
 
 import com.Gymweb.gymweb.config.JwtService;
 import com.Gymweb.gymweb.entity.Member;
+import com.Gymweb.gymweb.entity.Role;
 import com.Gymweb.gymweb.entity.User;
 import com.Gymweb.gymweb.error.ValidationException;
 import com.Gymweb.gymweb.repository.MemberRepo;
@@ -40,9 +41,11 @@ public class MemberAuthenticationService extends BaseService<Member> {
         Member member = modelMapper.map(request, Member.class);
 
         // Set fields that don't map well by default
-        member.setRelaxingAreas(request.getRelaxingAreas());
-        member.setClassNames(request.getClassname());
+        //member.setRelaxingAreas(request.getRelaxingAreas());
+        //member.setClassNames(request.getClassname());
+        member.setRole(Role.MEMBER);
         member.setStatus("expired");
+        member.setPt(false);
         member.setPassword(passwordEncoder.encode(request.getPassword()));
 
         validateUnique(member);
@@ -51,6 +54,7 @@ public class MemberAuthenticationService extends BaseService<Member> {
         var jwtToken = jwtService.generateToken(member);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .role(Role.MEMBER)
                 .build();
     }
 
@@ -75,6 +79,7 @@ public class MemberAuthenticationService extends BaseService<Member> {
         var jwtToken = jwtService.generateToken(extraCliams, member);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .role(Role.MEMBER)
                 .build();
     }
 

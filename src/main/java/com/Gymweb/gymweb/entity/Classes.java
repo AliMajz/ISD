@@ -22,6 +22,8 @@ public class Classes {
 
     private String name;
 
+    private String day;
+
     @Column(name = "start_time")
     private LocalTime startTime;
 

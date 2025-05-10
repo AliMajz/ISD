@@ -41,5 +41,9 @@ public abstract class BaseService<T> {
         return repository.save(entity);
     }
 
+    public  T patchByEmail(String email, T entity) throws ValidationException {
+        return repository.save(entity);
+    }
+
 //    public abstract Coach patch(String email, Coach entity) throws ValidationException;
 }
