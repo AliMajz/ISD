@@ -1,5 +1,6 @@
 package com.Gymweb.gymweb.contoller;
 
+import com.Gymweb.gymweb.dto.MemberDto;
 import com.Gymweb.gymweb.entity.Member;
 import com.Gymweb.gymweb.entity.User;
 import com.Gymweb.gymweb.error.ValidationException;
@@ -30,7 +31,7 @@ public class MemberController {
         return memberService.findByEmail(email);
     }
     @PatchMapping("/{email}")
-    public Member patchByEmail(@PathVariable(name = "email") String email, @RequestBody Member member) throws ValidationException {
-        return memberService.patchByEmail(email, member);
+    public Member subscibeMembership(@PathVariable(name = "email") String email, @RequestBody MemberDto member) throws ValidationException {
+        return memberService.subscibeMembership(email, member);
     }
 }

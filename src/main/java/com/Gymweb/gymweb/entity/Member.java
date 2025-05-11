@@ -35,8 +35,8 @@ public class Member extends User implements UserDetails{
     private List<RelaxingAreas> relaxingAreas;
 
     @ElementCollection
-    @CollectionTable(name = "member_class_names", joinColumns = @JoinColumn(name = "member_id"))
-    @Column(name = "class_name")
-    private List<String> classNames;
+    @CollectionTable(name = "member_schedules", joinColumns = @JoinColumn(name = "member_id"))
+    @Column(name = "schedule_id")
+    private List<Schedule> schedules;
 
 }

@@ -1,8 +1,7 @@
 package com.Gymweb.gymweb.dto;
 
 
-import com.Gymweb.gymweb.entity.Coach;
-import com.Gymweb.gymweb.entity.Member;
+import com.Gymweb.gymweb.entity.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -22,15 +21,15 @@ public class MemberDto {
     private String lastName;
     private String email;
     private String phoneNumber;
-
     private LocalDate birthdayDate;
     private String gender;
+
+    private Boolean pt;
     private LocalDate startDate;
     private LocalDate endDate;
-    private String membership;
-
-    private List<String> relaxingAreas;
-    private List<String> classNames;
+    private Membership membership;
+    private List<RelaxingAreas> relaxingAreas;
+    private List<Long> scheduleIds;
 
     public static MemberDto toDto(Member member) {
         return MemberDto.builder()
@@ -41,13 +40,12 @@ public class MemberDto {
                 .phoneNumber(String.valueOf(member.getPhoneNb()))
                 .birthdayDate(member.getBirthdayDate())
                 .gender(member.getGender())
+                .pt(member.getPt())
                 .startDate(member.getStartDate())
                 .endDate(member.getEndDate())
-                .membership(member.getMembership() != null ? member.getMembership().name() : null)
-                .relaxingAreas(member.getRelaxingAreas() != null
-                        ? member.getRelaxingAreas().stream().map(Enum::name).toList()
-                        : null)
-                .classNames(member.getClassNames())
+                .membership(member.getMembership())
+                .relaxingAreas(member.getRelaxingAreas())
+                //.schedules(member.getSchedules())
                 .build();
     }
 }

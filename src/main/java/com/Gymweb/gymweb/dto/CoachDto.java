@@ -1,6 +1,6 @@
 package com.Gymweb.gymweb.dto;
 
-import com.Gymweb.gymweb.entity.Classes;
+//import com.Gymweb.gymweb.entity.Classes;
 import com.Gymweb.gymweb.entity.Coach;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

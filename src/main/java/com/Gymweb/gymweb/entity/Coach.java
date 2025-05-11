@@ -1,10 +1,7 @@
 package com.Gymweb.gymweb.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
@@ -16,6 +13,7 @@ import java.util.List;
 @SuperBuilder
 @Entity
 @Table(name = "coach")
+@EqualsAndHashCode(callSuper=false)
 public class Coach extends BaseEntity{
 
     @Id
@@ -28,6 +26,6 @@ public class Coach extends BaseEntity{
     private String createdBy;
     private String updatedBy;
 
-    @OneToMany(mappedBy = "coach", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Classes> classes;
+//    @OneToMany(mappedBy = "coach", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<Classes> classes;
 }
