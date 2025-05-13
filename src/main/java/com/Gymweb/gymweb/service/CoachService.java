@@ -1,6 +1,6 @@
 package com.Gymweb.gymweb.service;
 
-import com.Gymweb.gymweb.entity.Classes;
+//import com.Gymweb.gymweb.entity.Classes;
 import com.Gymweb.gymweb.entity.Coach;
 import com.Gymweb.gymweb.error.ValidationException;
 import com.Gymweb.gymweb.repository.CoachRepo;
@@ -84,9 +84,9 @@ public class CoachService extends BaseService<Coach> {
             coach1.setUpdatedBy(entity.getUpdatedBy());
         }
 
-        if (Objects.nonNull(entity.getClasses()) && !entity.getClasses().isEmpty()) {
-            coach1.setClasses(entity.getClasses());
-        }
+//        if (Objects.nonNull(entity.getClasses()) && !entity.getClasses().isEmpty()) {
+//            coach1.setClasses(entity.getClasses());
+//        }
         coach1.setUpdatedBy(Securityutils.getCurrentUsername());
         return coachRepo.save(coach1);
     }

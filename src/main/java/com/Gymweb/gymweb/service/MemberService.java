@@ -1,10 +1,10 @@
 package com.Gymweb.gymweb.service;
 
-import com.Gymweb.gymweb.entity.Member;
-import com.Gymweb.gymweb.entity.Role;
-import com.Gymweb.gymweb.entity.User;
+import com.Gymweb.gymweb.dto.MemberDto;
+import com.Gymweb.gymweb.entity.*;
 import com.Gymweb.gymweb.error.ValidationException;
 import com.Gymweb.gymweb.repository.MemberRepo;
+import com.Gymweb.gymweb.repository.ScheduleRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +17,8 @@ public class MemberService extends BaseService<Member> {
     @Autowired
     private MemberRepo memberRepo;
 
+    @Autowired
+    private ScheduleRepo scheduleRepo;
 
 
 
@@ -50,48 +52,38 @@ public class MemberService extends BaseService<Member> {
                 .orElseThrow(() -> new ValidationException("Member with email " + email + " not found."));
     }
 
-    @Override
-    public Member patchByEmail(String email, Member entity) throws ValidationException {
+    public Member subscibeMembership(String email, MemberDto dto) throws ValidationException {
 
         // Fetch the existing Member (which also includes the User fields)
         Member existingMember = memberRepo.findByEmail(email)
                 .orElseThrow(() -> new ValidationException("Member with ID " + email + " not found"));
 
-        // First, update the inherited fields from User (i.e., fname, lname, gender, email, etc.)
-        super.patchByEmail(email, entity); // Call the base patch method for User fields
-
-        // Now, update the Member-specific fields
-
-
-        if (entity.getStartDate() != null) {
-            existingMember.setStartDate(entity.getStartDate());
+        if(dto.getMembership() != null)
+        {
+            existingMember.setMembership(dto.getMembership());
+            existingMember.setStartDate(LocalDate.now());
+            existingMember.setEndDate(setMembershipEnddate(LocalDate.now(), dto.getMembership() ));
+            existingMember.setStatus("Active");
         }
 
-        if (entity.getEndDate() != null) {
-            existingMember.setEndDate(entity.getEndDate());
+        if (dto.getPt() != null) {
+            existingMember.setPt(dto.getPt());
         }
 
-        if (entity.getStatus() != null && !entity.getStatus().isBlank()) {
-            existingMember.setStatus(entity.getStatus());
-        }
-        if (entity.getPt() != null) {
-            existingMember.setPt(entity.getPt());
+        if (dto.getRelaxingAreas() != null && !dto.getRelaxingAreas().isEmpty()) {
+            existingMember.setRelaxingAreas(dto.getRelaxingAreas());
         }
 
-        if (entity.getMembership() != null) {
-            existingMember.setMembership(entity.getMembership());
+        if(dto.getScheduleIds() != null && !dto.getScheduleIds().isEmpty())
+        {
+            // Assuming you have a method to fetch schedules by their IDs
+            List<Schedule> schedules = scheduleRepo.findAllById(dto.getScheduleIds());
+            existingMember.setSchedules(schedules);
         }
 
-        if (entity.getRelaxingAreas() != null && !entity.getRelaxingAreas().isEmpty()) {
-            existingMember.setRelaxingAreas(entity.getRelaxingAreas());
-        }
-
-        if (entity.getClassNames() != null && !entity.getClassNames().isEmpty()) {
-            existingMember.setClassNames(entity.getClassNames());
-        }
 
         // Save the updated member using the generic method
-        return super.patchByEmail(email, existingMember); // Save the Member entity
+        return super.update(existingMember.getId(), existingMember); // Save the Member entity
     }
 
 
@@ -107,5 +99,26 @@ public class MemberService extends BaseService<Member> {
     @Override
     public List<Member> fetchList() {
         return super.fetchList();
+    }
+
+    private LocalDate setMembershipEnddate(LocalDate startDate, Membership membershipType) {
+        LocalDate endDate = null;
+        switch (membershipType)
+        {
+            case ONE_MONTH:
+                endDate = startDate.plusMonths(1);
+                break;
+            case THREE_MONTHS:
+                endDate = startDate.plusMonths(3);
+                break;
+            case SIX_MONTHS:
+                endDate = startDate.plusMonths(6);
+                break;
+            case NINE_MONTHS:
+                endDate = startDate.plusMonths(9);
+            default:
+                throw new IllegalArgumentException("Invalid membership type: " + membershipType);
+        }
+        return endDate;
     }
 }

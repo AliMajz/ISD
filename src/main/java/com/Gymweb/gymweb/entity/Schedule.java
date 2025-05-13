@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
@@ -28,12 +29,16 @@ public class Schedule {
     private Coach coach;
 
     // Many-to-One relationship with Classes entity
-    @ManyToOne
-    @JoinColumn(name = "class_id")
-    private Classes classes; // Reference to the Classes entity (not an enum)
+//    @ManyToOne
+//    @JoinColumn(name = "class_id")
+//    private Classes classes; // Reference to the Classes entity (not an enum)
 
-    private LocalDate startTime;
-    private LocalDate endTime;
+    @Enumerated(EnumType.STRING)
+    private WorkoutType workoutType;
+
+
+    private LocalTime startTime;
+    private LocalTime endTime;
 
     // A list of days for the schedule
     @ElementCollection(targetClass = Days.class)
