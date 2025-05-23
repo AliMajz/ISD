@@ -1,0 +1,35 @@
+services:
+  postgres:
+    image: postgres:15
+    # container_name: gymweb-db 
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: gymweb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./ISD  # Update this to actual backend folder
+      dockerfile: Dockerfile
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgres
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/gymweb
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: 123
+
+  frontend:
+    build:
+      context: ./GYM-WEB  # Update this to actual frontend folder
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+
+volumes:
+  pgdata:
