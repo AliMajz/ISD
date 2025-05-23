@@ -1,19 +1,25 @@
 package com.Gymweb.gymweb.service;
 
 import com.Gymweb.gymweb.dto.ScheduleDto;
+import com.Gymweb.gymweb.entity.Member;
 import com.Gymweb.gymweb.entity.Schedule;
 import com.Gymweb.gymweb.error.ValidationException;
 import com.Gymweb.gymweb.repository.CoachRepo;
+import com.Gymweb.gymweb.repository.MemberRepo;
 import com.Gymweb.gymweb.repository.ScheduleRepo;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ScheduleService extends BaseService<Schedule>{
 
     @Autowired
     private ScheduleRepo repository;
+    private MemberRepo memberRepo;
 
     @Autowired
     private CoachRepo coachRepo;

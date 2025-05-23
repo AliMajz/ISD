@@ -37,6 +37,7 @@ public class Member extends User implements UserDetails{
     @ElementCollection
     @CollectionTable(name = "member_schedules", joinColumns = @JoinColumn(name = "member_id"))
     @Column(name = "schedule_id")
+//    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Schedule> schedules;
 
 }

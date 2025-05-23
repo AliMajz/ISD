@@ -1,7 +1,9 @@
 package com.Gymweb.gymweb.contoller;
 
 import com.Gymweb.gymweb.dto.MemberDto;
+import com.Gymweb.gymweb.dto.ScheduleDto;
 import com.Gymweb.gymweb.entity.Member;
+import com.Gymweb.gymweb.entity.Schedule;
 import com.Gymweb.gymweb.entity.User;
 import com.Gymweb.gymweb.error.ValidationException;
 import com.Gymweb.gymweb.service.MemberService;
@@ -9,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/v1/member")

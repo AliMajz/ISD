@@ -19,6 +19,7 @@ public class CoachDto {
     private String specialty;
     private String createdBy;
     private String updatedBy;
+    private String photo;
 
     public static CoachDto toDto(Coach coach) {
         return CoachDto.builder()
@@ -27,6 +28,7 @@ public class CoachDto {
                 .specialty(coach.getSpecialty())
                 .createdBy(coach.getCreatedBy())
                 .updatedBy(coach.getUpdatedBy())
+                .photo(coach.getPhoto())
                 .build();
     }
 }

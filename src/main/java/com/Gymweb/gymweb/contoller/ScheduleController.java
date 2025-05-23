@@ -32,8 +32,4 @@ public class ScheduleController {
     public void delete(@PathVariable(name = "id")  long id) throws ValidationException {
         scheduleService.deleteById(id);
     }
-
-
-
-
 }

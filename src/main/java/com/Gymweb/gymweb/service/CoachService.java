@@ -34,11 +34,6 @@ public class CoachService extends BaseService<Coach> {
         validateUnique(entity);
         entity.setCreatedBy(Securityutils.getCurrentUsername());
 
-//        if (entity.getClasses() != null) {
-//            for (Classes c : entity.getClasses()) {
-//                c.setCoach(entity);  // 🔁 Ensure the reverse relationship is set
-//            }
-//        }
         return super.add(entity);
     }
 

@@ -25,6 +25,8 @@ public class Coach extends BaseEntity{
     private String specialty;
     private String createdBy;
     private String updatedBy;
+    @Column(columnDefinition = "TEXT")
+    private String photo;
 
 //    @OneToMany(mappedBy = "coach", cascade = CascadeType.ALL, orphanRemoval = true)
 //    private List<Classes> classes;
